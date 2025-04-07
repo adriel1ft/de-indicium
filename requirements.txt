@@ -1,0 +1,7 @@
+
+meltano==2.12
+apache-airflow<=2.8
+# Transformation
+
+
+

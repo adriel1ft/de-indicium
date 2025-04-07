@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  postgres_source:
+    image: postgres: 13
+    environment:
+      POSTGRES_USER: northwind
+      POSTGRES_PASSWORD: northwind
+      POSTGRES_DB: northwind
+    volumes:
+      - ./source_data:/var/lib/postgresql/data
+      - ./data/northwind.sql:/docker-entrypoint-initdb.d/northwind.sql
+    ports:
+      - "5432:5432"
+
+  postgres_target:
+    image: postgres: 13
+    environment:
+      POSTGRES_USER: northwind
+      POSTGRES_PASSWORD: northwind
+      POSTGRES_DB: northwind
+    volumes:
+      - ./target_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+
+    
+  meltano:
+    image: meltano/meltano:latest
+    environment:
+      MELTANO_PROJECT_NAME: northwind
+      MELTANO_PROJECT_DIR: /meltano
+      MELTANO_ENVIRONMENT: development
+    volumes:
+      - ./meltano:/meltano
+      - ./data:/data
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres_source
+      - postgres_target
+
+  airflow:
+    image: apache/airflow:2.7.2
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
+      AIRFLOW__WEBSERVER__WEB_SERVER_PORT: 8080
+      AIRFLOW__WEBSERVER__WORKERS: 4
+      AIRFLOW__WEBSERVER__WORKER_CLASS: gthread
+    volumes:
+      - ./airflow:/usr/local/airflow
+      - .airflow/dags:/usr/local/airflow/dags
+      - .airflow/plugins:/usr/local/airflow/plugins
+      - .airflow/logs:/usr/local/airflow/logs
+      - .airflow/requirements.txt:/requirements.txt
+      - ./data:/data
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_source
+      - postgres_target
