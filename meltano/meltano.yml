@@ -19,6 +19,14 @@ plugins:
   - name: tap-postgres
     variant: meltanolabs
     pip_url: meltanolabs-tap-postgres
+    config:
+      host: localhost
+      port: 5433
+      user: northwind
+      password: northwind
+      database: northwind
+      schema: public
+      tables:
   loaders:
   - name: target-postgres
     variant: meltanolabs

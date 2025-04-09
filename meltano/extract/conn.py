@@ -1,4 +1,5 @@
 import psycopg2
+import yaml
 
 # Conectar ao banco de dados fonte
 conn_source = psycopg2.connect(
@@ -19,20 +20,25 @@ conn_target = psycopg2.connect(
 )
 
 
-# Exemplo de consulta
-cursor = conn_source.cursor()
-cursor.execute("""
-    SELECT table_name 
-    FROM information_schema.tables 
-    WHERE table_schema = 'public'
-    ORder by table_name;
+def fetch_tables():
+    conn = conn_source
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT table_name 
+        FROM information_schema.tables 
+        WHERE table_schema = 'public'
+        ORDER BY table_name;
+    """)
+    tables = [row[0] for row in cursor.fetchall()]
+    cursor.close()
+    return tables
 
-""")
-tables = cursor.fetchall()
 
-for table in tables:
-    print(f" - {table[0]}")
+def update_meltano_yml(tables):
+    with open('meltano.yml', 'r') as file:
+        meltano_config = yaml.safe_load(file)
+    
+    meltano_config["plugins"]["extractors"][1]["config"]["tables"] = tables
 
-cursor.close()
-conn_source.close()
-conn_target.close()
+    with open('meltano.yml', 'w') as file:
+        yaml.dump(meltano_config, file, default_flow_style=False)
