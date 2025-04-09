@@ -1,7 +1,6 @@
 
-meltano==2.12
-apache-airflow<=2.8
-# Transformation
+meltano==3.7.1
+psycopg2
 
 
 

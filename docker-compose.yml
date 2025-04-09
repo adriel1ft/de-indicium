@@ -1,31 +1,27 @@
-version: '3.8'
-
 services:
   postgres_source:
-    image: postgres: 13
+    image: postgres:13
     environment:
       POSTGRES_USER: northwind
       POSTGRES_PASSWORD: northwind
       POSTGRES_DB: northwind
     volumes:
-      - ./source_data:/var/lib/postgresql/data
+      - postgres_source_data:/var/lib/postgresql/data
       - ./data/northwind.sql:/docker-entrypoint-initdb.d/northwind.sql
-    ports:
-      - "5432:5432"
-
-  postgres_target:
-    image: postgres: 13
-    environment:
-      POSTGRES_USER: northwind
-      POSTGRES_PASSWORD: northwind
-      POSTGRES_DB: northwind
-    volumes:
-      - ./target_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
 
+  postgres_target:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: northwind
+      POSTGRES_PASSWORD: northwind
+      POSTGRES_DB: northwind
+    volumes:
+      - postgres_target_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
 
-    
   meltano:
     image: meltano/meltano:latest
     environment:
@@ -51,13 +47,23 @@ services:
       AIRFLOW__WEBSERVER__WORKER_CLASS: gthread
     volumes:
       - ./airflow:/usr/local/airflow
-      - .airflow/dags:/usr/local/airflow/dags
-      - .airflow/plugins:/usr/local/airflow/plugins
-      - .airflow/logs:/usr/local/airflow/logs
-      - .airflow/requirements.txt:/requirements.txt
+      - ./airflow/dags:/usr/local/airflow/dags
+      - ./airflow/plugins:/usr/local/airflow/plugins
+      - ./airflow/logs:/usr/local/airflow/logs
+      - ./airflow/requirements.txt:/requirements.txt
       - ./data:/data
     ports:
       - "8080:8080"
     depends_on:
       - postgres_source
       - postgres_target
+    command: >
+      bash -c "pip install -r /requirements.txt &&
+      airflow db init &&
+      airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com &&
+      airflow webserver --port 8080 --workers 4 --worker-class gthread & 
+      airflow scheduler"
+
+volumes:
+  postgres_source_data:
+  postgres_target_data:
