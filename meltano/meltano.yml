@@ -26,13 +26,21 @@ plugins:
       password: northwind
       database: northwind
       schema: public
-      tables:
+      tables: []
   loaders:
   - name: target-postgres
     variant: meltanolabs
     pip_url: meltanolabs-target-postgres
+    config:
+      host: localhost
+      port: 5434
+      user: northwind
+      password: northwind
+      database: northwind
+      schema: public
+      tables: []
   - name: target-parquet
     variant: automattic
     pip_url: git+https://github.com/Automattic/target-parquet.git
     config:
-        path: output/
+      destination_path: load/
