@@ -20,6 +20,7 @@ conn_target = psycopg2.connect(
 )
 
 
+
 def fetch_tables():
     conn = conn_source
     cursor = conn.cursor()
@@ -34,11 +35,40 @@ def fetch_tables():
     return tables
 
 
+
 def update_meltano_yml(tables):
     with open('meltano.yml', 'r') as file:
         meltano_config = yaml.safe_load(file)
     
-    meltano_config["plugins"]["extractors"][1]["config"]["tables"] = tables
+    for extractor in meltano_config["plugins"]["extractors"]:
+        if extractor["name"] == "tap-postgres":
+            extractor["config"]["tables"] = tables
+            break
+    else:
+        raise ValueError("Extractor 'tap-postgres' not found in meltano.yml")
 
     with open('meltano.yml', 'w') as file:
         yaml.dump(meltano_config, file, default_flow_style=False)
+
+def ordinal_position():
+    cursor = conn_source.cursor()
+    cursor.execute("""
+        SELECT table_name, column_name, ordinal_position
+        FROM information_schema.columns
+        WHERE table_schema = 'public'
+        ORDER BY table_name, ordinal_position;
+    """)
+    rows = cursor.fetchall()
+    cursor.close()
+    return rows
+
+if __name__ == "__main__":
+    tables = fetch_tables()
+    print("Tabelas encontradas:", tables)
+    update_meltano_yml(tables)
+    print("Arquivo meltano.yml atualizado com sucesso.")
+
+    ordinal_positions = ordinal_position()
+    print("Posições ordinais:")
+    for table, column, position in ordinal_positions:
+        print(f"Tabela: {table}, Coluna: {column}, Posição: {position}")
