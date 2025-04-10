@@ -36,7 +36,7 @@ def fetch_tables():
 
 
 
-def update_meltano_yml(tables):
+def update_tables_meltano_yml(tables):
     with open('meltano.yml', 'r') as file:
         meltano_config = yaml.safe_load(file)
     
