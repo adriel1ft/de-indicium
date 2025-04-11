@@ -48,7 +48,7 @@ def update_tables_meltano_yml(tables):
         raise ValueError("Extractor 'tap-postgres' not found in meltano.yml")
 
     with open('meltano.yml', 'w') as file:
-        yaml.dump(meltano_config, file, default_flow_style=False)
+        yaml.dump(meltano_config, file, default_flow_style=False, sort_keys=False)
 
 def ordinal_position():
     cursor = conn_source.cursor()
@@ -62,13 +62,38 @@ def ordinal_position():
     cursor.close()
     return rows
 
-if __name__ == "__main__":
-    tables = fetch_tables()
-    print("Tabelas encontradas:", tables)
-    update_meltano_yml(tables)
-    print("Arquivo meltano.yml atualizado com sucesso.")
+def get_ordinal_positions():
+    """
+    Retorna as posições ordinais das colunas das tabelas no schema 'public',
+    com ordinal_position convertido para texto.
+    """
 
-    ordinal_positions = ordinal_position()
-    print("Posições ordinais:")
-    for table, column, position in ordinal_positions:
-        print(f"Tabela: {table}, Coluna: {column}, Posição: {position}")
+    cursor = conn_source.cursor()
+    query = """
+        SELECT table_name, column_name, ordinal_position::text AS ordinal_position
+        FROM information_schema.columns
+        WHERE table_schema = 'public'
+        ORDER BY table_name, ordinal_position;
+    """
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    result = [
+        {
+            "table_name": row[0],
+            "column_name": row[1],
+            "ordinal_position": row[2],
+        }
+        for row in rows
+        ]
+    
+    return result
+
+if __name__ == "__main__":
+   # Chame a função
+    cursor = conn_target.cursor()
+    cursor.execute("""SELECT * FROM order_details""")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    cursor.close()
+    conn_target.close()

@@ -26,7 +26,322 @@ plugins:
       password: northwind
       database: northwind
       schema: public
-      tables: []
+      tables:
+      - categories
+      - customer_customer_demo
+      - customer_demographics
+      - customers
+      - employee_territories
+      - employees
+      - orders
+      - products
+      - region
+      - shippers
+      - suppliers
+      - territories
+      - us_states
+    schema:
+      information_schema-sql_implementation_info:
+        integer_value:
+          type:
+          - integer
+          - 'null'
+      information_schema-attributes:
+        ordinal_position:
+          type:
+          - integer
+          - 'null'
+        character_maximum_length:
+          type:
+          - integer
+          - 'null'
+        character_octet_length:
+          type:
+          - integer
+          - 'null'
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+        maximum_cardinality:
+          type:
+          - integer
+          - 'null'
+      information_schema-columns:
+        ordinal_position:
+          type:
+          - integer
+          - 'null'
+        character_maximum_length:
+          type:
+          - integer
+          - 'null'
+        character_octet_length:
+          type:
+          - integer
+          - 'null'
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+        maximum_cardinality:
+          type:
+          - integer
+          - 'null'
+        identity_maximum:
+          type:
+          - integer
+          - 'null'
+      information_schema-domains:
+        character_maximum_length:
+          type:
+          - integer
+          - 'null'
+        character_octet_length:
+          type:
+          - integer
+          - 'null'
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+        maximum_cardinality:
+          type:
+          - integer
+          - 'null'
+      information_schema-element_types:
+        character_maximum_length:
+          type:
+          - integer
+          - 'null'
+        character_octet_length:
+          type:
+          - integer
+          - 'null'
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+        maximum_cardinality:
+          type:
+          - integer
+          - 'null'
+      information_schema-key_column_usage:
+        ordinal_position:
+          type:
+          - integer
+          - 'null'
+        position_in_unique_constraint:
+          type:
+          - integer
+          - 'null'
+      information_schema-parameters:
+        ordinal_position:
+          type:
+          - integer
+          - 'null'
+        character_maximum_length:
+          type:
+          - integer
+          - 'null'
+        character_octet_length:
+          type:
+          - integer
+          - 'null'
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+        maximum_cardinality:
+          type:
+          - integer
+          - 'null'
+      information_schema-routines:
+        character_maximum_length:
+          type:
+          - integer
+          - 'null'
+        character_octet_length:
+          type:
+          - integer
+          - 'null'
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+        maximum_cardinality:
+          type:
+          - integer
+          - 'null'
+        max_dynamic_result_sets:
+          type:
+          - integer
+          - 'null'
+        result_cast_char_max_length:
+          type:
+          - integer
+          - 'null'
+        result_cast_char_octet_length:
+          type:
+          - integer
+          - 'null'
+        result_cast_numeric_precision:
+          type:
+          - integer
+          - 'null'
+        result_cast_numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        result_cast_numeric_scale:
+          type:
+          - integer
+          - 'null'
+        result_cast_datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+        result_cast_maximum_cardinality:
+          type:
+          - integer
+          - 'null'
+      information_schema-sequences:
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        maximum_value:
+          type:
+          - integer
+          - 'null'
+      information_schema-user_defined_types:
+        character_maximum_length:
+          type:
+          - integer
+          - 'null'
+        character_octet_length:
+          type:
+          - integer
+          - 'null'
+        numeric_precision:
+          type:
+          - integer
+          - 'null'
+        numeric_precision_radix:
+          type:
+          - integer
+          - 'null'
+        numeric_scale:
+          type:
+          - integer
+          - 'null'
+        datetime_precision:
+          type:
+          - integer
+          - 'null'
+          format: date-time
+      information_schema-sql_sizing:
+        sizing_id:
+          type:
+          - integer
+          - 'null'
+        supported_value:
+          type:
+          - integer
+          - 'null'
+    select:
+    - '*.*'
+    - '*.*'
+  - name: tap-parquet
+    variant: ae-nv
+    pip_url: git+https://github.com/AE-nv/tap-parquet.git
   loaders:
   - name: target-postgres
     variant: meltanolabs
@@ -42,5 +357,10 @@ plugins:
   - name: target-parquet
     variant: automattic
     pip_url: git+https://github.com/Automattic/target-parquet.git
+    config:
+      destination_path: load/
+  - name: target-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
     config:
       destination_path: load/

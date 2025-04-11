@@ -1,6 +1,7 @@
 
 meltano==3.7.1
 psycopg2
+pandas
 
 
 
