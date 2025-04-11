@@ -27,7 +27,7 @@ dag = DAG(
     'meltano_daily_etl',
     default_args=default_args,
     description='Pipeline diário com múltiplos passos Meltano',
-    schedule_interval='0 0 * * *',  # Diariamente à meia-noite
+    schedule_interval='0 0 * * *', 
     catchup=False,
 )
 
