@@ -42,7 +42,13 @@ def load_nested_parquet_to_db(engine, base_path):
             else:
                 schema_table = os.path.basename(file_path).split('-')[0]
             
-            schema, table = schema_table.split('-', 1)
+            # Verificar se o nome contém um schema explícito
+            if '-' in schema_table:
+                schema, table = schema_table.split('-', 1)
+            else:
+                schema = 'public'  # Assumir schema padrão como 'public'
+                table = schema_table
+            
             table = table.split('.')[0]  # Remove extensão se houver
             
             logger.info(f"\nProcessando: {file_path}")
@@ -66,7 +72,7 @@ def load_nested_parquet_to_db(engine, base_path):
             else:
                 if_exists = 'fail'
             
-            # Escrever no banco
+            # Inserir os dados no banco de dados
             df.to_sql(
                 name=table,
                 con=engine,
@@ -79,9 +85,9 @@ def load_nested_parquet_to_db(engine, base_path):
         except Exception as e:
             logger.error(f"Erro no arquivo {file_path}: {str(e)}")
 
-# Database connection (adjust as needed)
+
 db_connection = "postgresql://northwind:northwind@localhost:5434/northwind"
 engine = create_engine(db_connection)
 
-# Execute the load
+
 load_nested_parquet_to_db(engine, 'load/')
