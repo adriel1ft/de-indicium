@@ -1,9 +1,9 @@
-🚀 Technical Challenge — Data Pipeline with Meltano and Airflow
+# 🚀 Technical Challenge — Data Pipeline with Meltano and Airflow
 
 This project implements a data pipeline using Meltano for extraction and transformation, and Apache Airflow for orchestration.
 
 
-📌 Objective
+## 📌 Objective
 
 Build a pipeline that:
 
@@ -20,7 +20,7 @@ Build a pipeline that:
     - Orchestrates all steps using Apache Airflow
 
 
-🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 - Meltano
 
@@ -32,7 +32,7 @@ Build a pipeline that:
 
 - Docker
 
-📂 Pipeline Structure
+## 📂 Pipeline Structure
 
 - Step 1 (ETL with Meltano)
 
@@ -54,7 +54,7 @@ Build a pipeline that:
 
 ⚠️ Note: Airflow is configured in the project, but due to an issue in the docker-compose.yml, the final execution was performed manually. The DAG is fully functional and ready for execution in a working Airflow environment.
 
-🧠 What I Learned
+## 🧠 What I Learned
 
 - How to integrate Meltano with multiple data sources
 
@@ -64,7 +64,7 @@ Build a pipeline that:
 
 - Using Python scripts as flexible alternatives for specific tasks
 
-🚧 How to Run the Project
+## 🚧 How to Run the Project
 
 ```
 # Start the PostgreSQL database 
