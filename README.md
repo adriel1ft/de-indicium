@@ -67,6 +67,9 @@ Build a pipeline that:
 ## 🚧 How to Run the Project
 
 ```
+# Install dependencias
+pip install -r requirements.txt
+
 # Start the PostgreSQL database 
 docker-compose up -d
 
