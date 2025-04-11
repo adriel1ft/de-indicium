@@ -67,7 +67,7 @@ Build a pipeline that:
 ## 🚧 How to Run the Project
 
 ```
-# Install dependencias
+# Install dependencies
 pip install -r requirements.txt
 
 # Start the PostgreSQL database 
@@ -81,6 +81,10 @@ meltano install
 meltano run tap-csv target-parquet
 meltano run tap-postgres target-parquet
 
-# Run the Python script to load Parquet data into PostgreSQL
+# Run the python script to load Parquet data into PostgreSQL
 python3 parquet_to_db.py
+
+# Run the python script with the validation query from postgres target database
+python3 example.py
+
 ```
